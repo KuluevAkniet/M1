@@ -5,27 +5,31 @@ import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService {
+    private tokens = {}
     constructor(private readonly jwtService:JwtService){}
 
+    // async hashUser(){
+    //     const user = await this.tokens
+    // }
 
-    async getData(data:object ):Promise<any>{
 
-        let  payload = {...data};
+    async getData(data: { name: string, lastname:string, password:string } ):Promise<any>{
 
-        setTimeout(() => {
-            payload = null
-        },5000)
+       const token =  await bcrypt.hash(data.name,5);
 
-        const jwt =  {
-            token: this.jwtService.sign(payload)
-        }
-
-       if(jwt){
-          console.log(true)
-       }else{
-          console.log(false)
+       
+       const cryptUser = {
+        ...data, name:token
        }
-    
+
+       this.tokens = cryptUser;
+
+       if(cryptUser.name && data.name){
+         console.log(true)
+       }else{
+        console.log(false)
+       }
+
     }
      
 }

@@ -11,7 +11,7 @@ export class UserController {
 
 
     @MessagePattern({cmd:'token'})
-    async getData(@Payload()  data:object ):Promise<any>{
+    async getData(@Payload()  data:{name: string, lastname:string, password:string} ):Promise<any>{
        return await this.userService.getData(data)
     }
     
