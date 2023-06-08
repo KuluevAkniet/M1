@@ -7,7 +7,7 @@ import { jwtConstants } from './constans';
 @Module({
   imports:[JwtModule.register({
         secret:jwtConstants.secret,
-    signOptions: { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) },
+    signOptions: { expiresIn: "3s" },
   })],
   providers: [UserService],
   controllers: [UserController]
